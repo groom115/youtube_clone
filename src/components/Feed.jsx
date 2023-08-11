@@ -5,13 +5,14 @@ import Videos from "./Videos";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const Feed = () => {
-  const [selectedCategory, setselectedCategory] = useState("New");
-  const [Video, setVideo] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("New");
+  const [videos, setVideos] = useState(null);
+
   useEffect(() => {
-    //setVideo(null);
+    setVideos(null);
 
     fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) =>
-      setVideo(data.items)
+      setVideos(data.items)
     );
   }, [selectedCategory]);
 
@@ -20,28 +21,36 @@ const Feed = () => {
       <Box
         sx={{
           height: { sx: "auto", md: "92vh" },
-          borderRight: "1px solid white",
+          borderRight: "1px solid #3d3d3d",
           px: { sx: 0, md: 2 },
         }}
       >
         <SideBar
           selectedCategory={selectedCategory}
-          setselectedCategory={setselectedCategory}
+          setselectedCategory={setSelectedCategory}
         />
+
         <Typography
           className="copyright"
           variant="body2"
-          sx={{ mt: 1.5, color: "white" }}
+          sx={{ mt: 1.5, color: "#fff" }}
         >
-          copyright 2022 JSM media
+          Copyright © 2022 JSM Media
         </Typography>
       </Box>
-      <Box sx={{ p: 2, height: "90vh", overflow: "auto" }}>
-        <Typography variant="h4" sx={{ color: "white", mb: 2 }}>
-          {selectedCategory} <span style={{ color: "red" }}>Videos</span>
+
+      <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          mb={2}
+          sx={{ color: "white" }}
+        >
+          {selectedCategory} <span style={{ color: "#FC1503" }}>videos</span>
         </Typography>
+
+        <Videos videos={videos} />
       </Box>
-      <Videos Videos={Video} />
     </Stack>
   );
 };

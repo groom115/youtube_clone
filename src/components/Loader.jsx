@@ -2,7 +2,12 @@ import React from "react";
 import { Box, CircularProgress, Stack } from "@mui/material";
 
 const Loader = () => (
-  <Box minHeight="95vh">
+  <Box
+    minHeight="95vh"
+    display="flex"
+    alignItems="center"
+    justifyContent="center"
+  >
     <Stack
       direction="row"
       justifyContent="center"
